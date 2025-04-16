@@ -77,8 +77,7 @@ fun CountryCarousel(countries: List<String>) {
     LazyRow(
         state = listState,
         modifier = Modifier
-            .fillMaxWidth()
-            .background(Color.White),
+            .fillMaxWidth(),
         contentPadding = PaddingValues(horizontal = (screenWidth - itemWidth) / 2),
         horizontalArrangement = Arrangement.spacedBy(itemSpacing)
     ) {

@@ -9,6 +9,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -53,8 +54,8 @@ fun CountryCard(name: String) {
             modifier = Modifier
                 .fillMaxWidth()
                 .align(Alignment.BottomStart)
-                .background(Color.Black.copy(alpha = 0.5f))
                 .padding(8.dp) // padding exterior
+                .shadow(12.dp, shape = RectangleShape)
         ) {
             Column {
                 Text(
@@ -102,8 +103,7 @@ fun CountryCardPreview() {
     // Aquí llamas a tu Composable con datos de ejemplo para el preview
     Box(
         modifier = Modifier
-            .width(300.dp) // Define un ancho fijo para el preview
-            .height(400.dp) // Define un alto fijo para el preview
+            .fillMaxSize()
             .background(Color.White) // Opcional: un fondo para el contenedor del preview
             .padding(16.dp) // Opcional: un poco de padding alrededor de la tarjeta
     ) {
