@@ -4,6 +4,8 @@
 *.idea
 .gradle
 app/build
+app/src/main/res/values/keys.xml
+
 # Log file
 *.log
 
