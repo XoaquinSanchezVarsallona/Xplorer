@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Xplorer</string>
+    <string name="unsplash_url">https://api.unsplash.com/</string>
+    <string name="world_bank_url">https://api.worldbank.org/v2/</string>
 </resources>

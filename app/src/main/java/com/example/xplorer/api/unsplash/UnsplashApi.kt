@@ -3,6 +3,7 @@ package com.example.xplorer.api.unsplash
 import android.content.Context
 import android.widget.Toast
 import com.example.xplorer.R
+import com.example.xplorer.api.Notifier
 import retrofit.Call
 import retrofit.Callback
 import retrofit.GsonConverterFactory
@@ -13,7 +14,9 @@ import javax.inject.Inject
 class UnsplashServiceImpl @Inject constructor() {
 
     suspend fun getImage(
+        query: String,
         context: Context,
+        notifier : Notifier,
         onSuccess: (UnsplashImage) -> Unit,
         onFail: () -> Unit,
         loadingFinished: () -> Unit
@@ -26,7 +29,7 @@ class UnsplashServiceImpl @Inject constructor() {
         val service: UnsplashService = retrofit.create(UnsplashService::class.java)
 
         val call: Call<UnsplashImage> = service.getImage(
-            query = "nature", // Reemplazá con lo que necesites
+            query = query,
             orientation = "landscape",
             apiKey = context.getString(R.string.unsplash_access_key)
         )
@@ -39,17 +42,17 @@ class UnsplashServiceImpl @Inject constructor() {
                     if (image != null) {
                         onSuccess(image)
                     } else {
-                        Toast.makeText(context, "No image found", Toast.LENGTH_SHORT).show()
+                        notifier.notify("Something went wrong loading image", context)
                         onFail()
                     }
                 } else {
-                    Toast.makeText(context, "Bad request", Toast.LENGTH_SHORT).show()
+                    notifier.notify("Bad request", context)
                     onFail()
                 }
             }
 
             override fun onFailure(t: Throwable?) {
-                Toast.makeText(context, "Can't get image", Toast.LENGTH_SHORT).show()
+                notifier.notify("Can't get image", context)
                 onFail()
                 loadingFinished()            }
         })
