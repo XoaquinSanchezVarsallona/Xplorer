@@ -10,6 +10,7 @@
  import androidx.navigation.NavHostController
  import androidx.navigation.compose.NavHost
  import androidx.navigation.compose.composable
+ import com.example.xplorer.ui.pages.HomePage
 
 
  @Composable
@@ -23,7 +24,7 @@
              .padding(20.dp)
      ) {
          composable (route= XplorerScreens.Login.name) {
-             CountryCardPreview()
+             HomePage()
          }
          composable(route = XplorerScreens.Home.name) {
  //            MainMenu(

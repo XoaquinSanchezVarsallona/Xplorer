@@ -1,37 +1,34 @@
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.Home
-import androidx.compose.material.icons.filled.LocationOn
-import androidx.compose.material3.BottomAppBar
-import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material.icons.filled.Person
+import androidx.compose.material.icons.outlined.Favorite
+import androidx.compose.material.icons.outlined.Home
+import androidx.compose.material.icons.outlined.Person
+import androidx.compose.material3.Badge
+import androidx.compose.material3.BadgedBox
 import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
-import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.NavigationBar
+import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
-import androidx.compose.ui.Modifier
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
-import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.xplorer.navigator.XplorerScreens
-import com.example.xplorer.ui.theme.Typography
 import com.example.xplorer.ui.theme.XplorerTheme
-import java.util.Locale
 
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun XplorerBottomBarPreview() {
     val navController = rememberNavController()
-    XplorerBottomBar(navController = navController)
+    BottomBar(
+        onNavigate = { screen -> navController.navigate(screen) }
+    )
 }
 
 @Preview(showBackground = true)
@@ -42,41 +39,75 @@ fun XplorerBottomBarPreviewLight() {
     }
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun XplorerBottomBar(navController: NavController , modifier: Modifier = Modifier.size(width = 300.dp, height = 80.dp)) {
-    // Define un ícono para cada destino (puedes personalizarlos)
-    val mapper = mapOf(
-        XplorerScreens.Home.name to Icons.Filled.Home,
-        XplorerScreens.Country.name to Icons.Filled.LocationOn,
-        XplorerScreens.Favorite.name to Icons.Filled.Favorite,
-    )
+fun BottomBar(
+    onNavigate: (String) -> Unit,
+) {
+    val homeTab = TabBarItem(title = XplorerScreens.Home.name, selectedIcon = Icons.Filled.Home, unselectedIcon = Icons.Outlined.Home)
+    val rankingTab = TabBarItem(title = XplorerScreens.Favorite.name, selectedIcon = Icons.Filled.Favorite, unselectedIcon = Icons.Outlined.Favorite)
+    val profileTab = TabBarItem(title = XplorerScreens.Profile.name, selectedIcon = Icons.Filled.Person, unselectedIcon = Icons.Outlined.Person)
 
-    BottomAppBar (
+    val tabBarItems = listOf(homeTab, rankingTab, profileTab)
 
-        modifier = modifier
-    ) {
-        Row (
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.SpaceEvenly,
-            modifier = Modifier.fillMaxSize()
-        ) {
-            mapper.forEach { (name : String, icon : ImageVector ) ->
-                Column (
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                    verticalArrangement = Arrangement.Center,
-                    ){
-                    IconButton(onClick = { navController.navigate(name) }) {
-                        Icon(imageVector = icon, contentDescription = "$name Nav Icon")
+    TabView(tabBarItems, onNavigate)
+}
 
-                    }
-                    Text(
-                        style = Typography.bodySmall,
-                        color = MaterialTheme.colorScheme.primary,
-                        text = name.replaceFirstChar { if (it.isLowerCase()) it.titlecase(Locale.ROOT) else it.toString() }
+data class TabBarItem(
+    val title: String,
+    val selectedIcon: ImageVector,
+    val unselectedIcon: ImageVector,
+    val badgeAmount: Int? = null
+)
+
+@Composable
+fun TabView(tabBarItems: List<TabBarItem>, onNavigate: (String) -> Unit) {
+    var selectedTabIndex by rememberSaveable {
+        mutableIntStateOf(0)
+    }
+
+    NavigationBar {
+        tabBarItems.forEachIndexed { index, tabBarItem ->
+            NavigationBarItem(
+                selected = selectedTabIndex == index,
+                onClick = {
+                    selectedTabIndex = index
+                    onNavigate(tabBarItem.title)
+                },
+                icon = {
+                    TabBarIconView(
+                        isSelected = selectedTabIndex == index,
+                        selectedIcon = tabBarItem.selectedIcon,
+                        unselectedIcon = tabBarItem.unselectedIcon,
+                        title = tabBarItem.title,
+                        badgeAmount = tabBarItem.badgeAmount
                     )
-                }
-            }
+                },
+                label = { Text(tabBarItem.title) })
+        }
+    }
+}
+
+@Composable
+fun TabBarIconView(
+    isSelected: Boolean,
+    selectedIcon: ImageVector,
+    unselectedIcon: ImageVector,
+    title: String,
+    badgeAmount: Int? = null
+) {
+    BadgedBox(badge = { TabBarBadgeView(badgeAmount) }) {
+        Icon(
+            imageVector = if (isSelected) {selectedIcon} else {unselectedIcon},
+            contentDescription = title
+        )
+    }
+}
+
+@Composable
+fun TabBarBadgeView(count: Int? = null) {
+    if (count != null) {
+        Badge {
+            Text(count.toString())
         }
     }
 }

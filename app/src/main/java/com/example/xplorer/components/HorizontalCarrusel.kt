@@ -90,7 +90,7 @@ fun CountryCarousel(countries: List<String>) {
                         scaleY = scale
                     )
             ) {
-                CountryCard(name = country)
+//                CountryCard(name = country, image = image)
             }
         }
     }

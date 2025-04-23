@@ -16,6 +16,5 @@ class ToastNotifier : Notifier {
 class TestNotifier : Notifier {
     override fun notify(message: String, context: Context) {
         println("TestNotifier: $message")
-
     }
 }

@@ -1,17 +1,20 @@
-package com.example.xplorer.api.world_bank
+package com.example.xplorer.viewModels
 
 import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.xplorer.api.Notifier
-import com.example.xplorer.api.unsplash.UnsplashServiceImpl
+import com.example.xplorer.api.ToastNotifier
+import com.example.xplorer.api.world_bank.WorldBankData
+import com.example.xplorer.api.world_bank.WorldBankServiceImpl
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 class WBDataStorage (
-    private val api : WorldBankServiceImpl,
-    private val notifier : Notifier,
+    @Inject private val api : WorldBankServiceImpl,
+    private val notifier : Notifier = ToastNotifier(),
 ) : ViewModel() {
 
     private val _countryList = MutableStateFlow<List<WorldBankData>> (emptyList())
@@ -25,12 +28,10 @@ class WBDataStorage (
     fun fetchCountryInfo (context : Context) {
         val actualContext = context.applicationContext
 
-        //val page = (startAt / perPage) + 1
-
         viewModelScope.launch {
             api.getTourismMostVisitedCountries(
                 notifier = notifier,
-                context = context.applicationContext,
+                context = actualContext,
                 onSuccess = { data ->
                     _countryList.value = data.sortedByDescending { it.value }
                 },

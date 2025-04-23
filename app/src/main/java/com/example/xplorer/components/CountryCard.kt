@@ -10,13 +10,14 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.xplorer.ui.theme.Typography
 
 @Composable
-fun CountryCard(name: String) {
+fun CountryCard(name: String, image: String) {
     val (currentWidth, currentHeight) = getScreenSize()
     Box(
         modifier = Modifier
@@ -30,20 +31,19 @@ fun CountryCard(name: String) {
         println((currentHeight * 0.7))
         println(currentWidth * 0.7)
 
-        // Falta implementar busqueda de la imagen dentro de Unsplashed api.
-        //
-        // AsyncImage...
-        //
-        // o
-        //
-        // ImagePainter (
-        //     painter = painterResource(id = UnsplashedApi.getImageOf(name)),
-        //     contentDescription = "Background image of this country card.",
-        //     modifier = Modifier.fillMaxSize(),
-        //     contentScale = ContentScale.Crop
-        // )
+//        AsyncImage (
+//            model = model = ImageRequest.
+//            Builder(LocalContext.current)
+//                .data(image)
+//                .crossfade()
+//                .build(),
+//            contentDescription = "Background image of this country card.",
+//            modifier = Modifier
+//                .fillMaxSize()
+//                .clip(RoundedCornerShape(16.dp)),
+//            contentScale = ContentScale.Crop
+//        )
 
-        // Fondo gris por ahora para representar imagen
         Box(
             modifier = Modifier
                 .fillMaxSize()
@@ -107,6 +107,6 @@ fun CountryCardPreview() {
             .background(Color.White) // Opcional: un fondo para el contenedor del preview
             .padding(16.dp) // Opcional: un poco de padding alrededor de la tarjeta
     ) {
-        CountryCard(name = "Argentina")
+        CountryCard(name = "Argentina", image = "")
     }
 }

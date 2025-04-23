@@ -1,20 +1,25 @@
-package com.example.xplorer.api.unsplash
+package com.example.xplorer.viewModels
 
 import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.xplorer.api.Notifier
+import com.example.xplorer.api.ToastNotifier
+import com.example.xplorer.api.unsplash.UnsplashImage
+import com.example.xplorer.api.unsplash.UnsplashServiceImpl
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 class ImageStorage (
-    private val api : UnsplashServiceImpl,
-    private val notifier : Notifier,
+    @Inject private val api : UnsplashServiceImpl,
+    private val notifier : Notifier = ToastNotifier(),
 )  : ViewModel() {
 
     // Mapa que asocia un nombre de búsqueda con una imagen de Unsplash
     private val _imageMap = mutableMapOf<String, StateFlow<UnsplashImage>>()
+    val imageMap: Map<String, StateFlow<UnsplashImage>> = _imageMap
 
     private val _isLoading = MutableStateFlow(true)
     val isLoading: StateFlow<Boolean> = _isLoading
@@ -28,7 +33,7 @@ class ImageStorage (
         // Retornamos el flujo correspondiente
         return _imageMap[keyword]!!
     }
-    private fun fetchImageFor(context : Context, keyword: String) {
+    fun fetchImageFor(context : Context, keyword: String) {
         val actualContext = context.applicationContext
 
         viewModelScope.launch {
