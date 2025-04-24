@@ -25,6 +25,10 @@ android {
         targetCompatibility = JavaVersion.VERSION_17
     }
 
+    composeOptions {
+        kotlinCompilerExtensionVersion = "1.5.12"
+    }
+
     kotlinOptions {
         jvmTarget = "17"
     }
@@ -46,7 +50,7 @@ dependencies {
 
     implementation("androidx.hilt:hilt-navigation-compose:1.2.0")
     implementation("com.google.dagger:hilt-android:2.49")
-    kapt("com.google.dagger:hilt-android-compiler:2.44")
+    kapt("com.google.dagger:hilt-android-compiler:2.49")
 
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
     implementation("com.squareup.retrofit:converter-gson:2.0.0-beta2")

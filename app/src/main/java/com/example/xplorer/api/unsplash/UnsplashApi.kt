@@ -13,7 +13,7 @@ import javax.inject.Inject
 
 class UnsplashServiceImpl @Inject constructor() {
 
-    suspend fun getImage(
+    fun getImage(
         query: String,
         context: Context,
         notifier : Notifier,

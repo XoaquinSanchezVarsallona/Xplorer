@@ -12,7 +12,7 @@ import retrofit.Retrofit
 import javax.inject.Inject
 
 class WorldBankServiceImpl @Inject constructor() {
-    suspend fun getTourismMostVisitedCountries (
+    fun getTourismMostVisitedCountries (
         page : Int,
         notifier : Notifier,
         context : Context,

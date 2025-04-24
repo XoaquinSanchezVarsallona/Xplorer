@@ -6,7 +6,7 @@ import retrofit.http.Query
 
 interface WorldBankService {
     @GET("country/all/indicator/ST.INT.ARVL")
-    suspend fun getTourismArrivals(
+    fun getTourismArrivals(
         @Query("format") format: String = "json",
         @Query("mrnev") mrnev: Int = 1,
         @Query("per_page") perPage: Int = 50,

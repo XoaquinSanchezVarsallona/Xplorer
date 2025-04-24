@@ -7,7 +7,7 @@ import retrofit.http.Query
 
 interface UnsplashService {
     @GET("search/photos?")
-    suspend fun getImage (
+    fun getImage (
         @Query("query") query : String,
         @Query("orientation") orientation : String,
         @Query("client_id") apiKey: String = R.string.unsplash_access_key.toString()

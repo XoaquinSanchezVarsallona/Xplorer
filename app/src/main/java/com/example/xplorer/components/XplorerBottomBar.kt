@@ -43,7 +43,7 @@ fun XplorerBottomBarPreviewLight() {
 fun BottomBar(
     onNavigate: (String) -> Unit,
 ) {
-    val homeTab = TabBarItem(title = XplorerScreens.Home.name, selectedIcon = Icons.Filled.Home, unselectedIcon = Icons.Outlined.Home)
+    val homeTab = TabBarItem(title = XplorerScreens.Login.name, selectedIcon = Icons.Filled.Home, unselectedIcon = Icons.Outlined.Home)
     val rankingTab = TabBarItem(title = XplorerScreens.Favorite.name, selectedIcon = Icons.Filled.Favorite, unselectedIcon = Icons.Outlined.Favorite)
     val profileTab = TabBarItem(title = XplorerScreens.Profile.name, selectedIcon = Icons.Filled.Person, unselectedIcon = Icons.Outlined.Person)
 
