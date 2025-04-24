@@ -1,9 +1,13 @@
 package com.example.xplorer.api.world_bank
 
 import android.content.Context
+import android.util.Log
 import android.widget.Toast
 import com.example.xplorer.R
 import com.example.xplorer.api.Notifier
+import com.google.gson.Gson
+import com.google.gson.JsonArray
+import com.google.gson.reflect.TypeToken
 import retrofit.Call
 import retrofit.Callback
 import retrofit.GsonConverterFactory
@@ -21,26 +25,31 @@ class WorldBankServiceImpl @Inject constructor() {
         loadingFinished: () -> Unit
 
     ) {
-       val retrofit : Retrofit = Retrofit.Builder()
-           .baseUrl(context.getString(R.string.world_bank_url))
-           .addConverterFactory(GsonConverterFactory.create())
-           .build()
+        val retrofit : Retrofit = Retrofit.Builder()
+            .baseUrl(context.getString(R.string.world_bank_url))
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
 
         val service = retrofit.create(WorldBankService::class.java)
 
-        val call: Call<List<WorldBankData>> = service.getTourismArrivals (
+        val call: Call<JsonArray> = service.getTourismArrivals (
             format = "json",
             mrnev = 1,
             perPage = 50,
             page = page
         )
-
-        call.enqueue(object : Callback<List<WorldBankData>>  {
-            override fun onResponse(response: Response<List<WorldBankData>>?, retrofit: Retrofit?) {
+        call.enqueue(object : Callback<JsonArray>  {
+            override fun onResponse(response: Response<JsonArray>?, retrofit: Retrofit?) {
                 loadingFinished()
                 if (response != null && response.isSuccess) {
-                    val countries: List<WorldBankData>? = response.body()
-                    if (countries != null) {
+                    val body: JsonArray  = response.body()
+                    if (body.size() != 0) {
+                        val dataArray = body[1].asJsonArray
+                        val gson = Gson()
+
+                        val type = object : TypeToken<List<WorldBankData>>() {}.type
+                        val countries: List<WorldBankData> = gson.fromJson(dataArray, type)
+
                         onSuccess(countries)
                     } else {
                         notifier.notify("World Bank Data is null", context)
@@ -53,7 +62,8 @@ class WorldBankServiceImpl @Inject constructor() {
             }
 
             override fun onFailure(t: Throwable?) {
-                notifier.notify("Can't get World Bank data", context)
+                notifier.notify("error: $t", context)
+                Log.e("World Service ERROR","error: $t")
                 onFail()
                 loadingFinished()
             }

@@ -1,5 +1,6 @@
 package com.example.xplorer.api.world_bank
 
+import com.google.gson.JsonArray
 import retrofit.Call
 import retrofit.http.GET
 import retrofit.http.Query
@@ -11,6 +12,6 @@ interface WorldBankService {
         @Query("mrnev") mrnev: Int = 1,
         @Query("per_page") perPage: Int = 50,
         @Query("page") page : Int = 1
-    ): Call<List<WorldBankData>>
+    ): Call<JsonArray>
 
 }

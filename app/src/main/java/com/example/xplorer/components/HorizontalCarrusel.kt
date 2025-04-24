@@ -18,6 +18,8 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.util.lerp
+import com.example.xplorer.api.unsplash.UnsplashImage
+import com.example.xplorer.api.unsplash.UnsplashUrls
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlin.math.absoluteValue
@@ -47,7 +49,7 @@ import kotlin.math.absoluteValue
 //}
 
 @Composable
-fun CountryCarousel(countries: List<String>) {
+fun CountryCarousel(imageMap : Map<String, UnsplashImage>) {
     val listState = rememberLazyListState()
     val screenWidth = LocalConfiguration.current.screenWidthDp.dp
     val itemSpacing = 16.dp
@@ -81,7 +83,7 @@ fun CountryCarousel(countries: List<String>) {
         contentPadding = PaddingValues(horizontal = (screenWidth - itemWidth) / 2),
         horizontalArrangement = Arrangement.spacedBy(itemSpacing)
     ) {
-        itemsIndexed(countries) { index, country ->
+        itemsIndexed(imageMap.toList()) { index, (countryName, image) ->
             val scale = calculateCardScale(index, listState)
             Box(
                 modifier = Modifier
@@ -90,7 +92,7 @@ fun CountryCarousel(countries: List<String>) {
                         scaleY = scale
                     )
             ) {
-//                CountryCard(name = country, image = image)
+                CountryCard(name = countryName, image = image.urls.raw)
             }
         }
     }
@@ -119,12 +121,23 @@ fun calculateCardScale(
 @Composable
 fun CountryCarouselPreview() {
     val countries = listOf("Argentina", "Brazil", "Chile", "Uruguay", "Mexico")
+    val unsplashImage = UnsplashImage(
+        id = "1",
+        urls = UnsplashUrls(
+            raw = "https://images.unsplash.com/photo-1567550207563-6503c9ff6995?crop=entropy\\u0026cs=srgb\\u0026fm=jpg\\u0026ixid=M3w3NDI1OTl8MHwxfHNlYXJjaHwxMHx8Q3plY2hpYXxlbnwwfDB8fHwxNzQ1NTI1Njk3fDA\\u0026ixlib=rb-4.0.3\\u0026q=85",
+            regular = "",
+            small = "",
+        ),
+        description = null
+    )
+    val countryMap = countries.associateWith { unsplashImage }
+
     Column(
         modifier = Modifier
             .fillMaxSize()
             .background(Color.LightGray)
             .padding(vertical = 16.dp)
     ) {
-        CountryCarousel(countries)
+        CountryCarousel(countryMap)
     }
 }

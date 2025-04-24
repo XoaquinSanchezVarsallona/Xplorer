@@ -23,6 +23,7 @@ import com.example.xplorer.viewModels.XplorerViewModel
 fun HomePage () {
     val viewModel: XplorerViewModel = hiltViewModel()
     val worldBankData by viewModel.countryList.collectAsState(emptyList())
+    val imageMap by viewModel.imageMap.collectAsState(initial = emptyMap())
 
     Column (
         modifier = Modifier
@@ -42,7 +43,7 @@ fun HomePage () {
         )
         Spacer(modifier = Modifier.height(16.dp))
         CountryCarousel(
-            countries = worldBankData.map { it.country.value }
+            imageMap = imageMap
         )
         Spacer(modifier = Modifier.weight(1f)) // Espaciador flexible
     }

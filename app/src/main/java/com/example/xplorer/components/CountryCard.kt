@@ -31,18 +31,17 @@ fun CountryCard(name: String, image: String) {
         println((currentHeight * 0.7))
         println(currentWidth * 0.7)
 
-//        AsyncImage (
-//            model = model = ImageRequest.
-//            Builder(LocalContext.current)
-//                .data(image)
-//                .crossfade()
-//                .build(),
-//            contentDescription = "Background image of this country card.",
-//            modifier = Modifier
-//                .fillMaxSize()
-//                .clip(RoundedCornerShape(16.dp)),
-//            contentScale = ContentScale.Crop
-//        )
+       AsyncImage (
+           model = model = ImageRequest.
+           Builder(LocalContext.current)
+               .data(image)
+               .build(),
+           contentDescription = "Background image of this country card.",
+           modifier = Modifier
+               .fillMaxSize()
+               .clip(RoundedCornerShape(16.dp)),
+           contentScale = ContentScale.Crop
+       )
 
         Box(
             modifier = Modifier

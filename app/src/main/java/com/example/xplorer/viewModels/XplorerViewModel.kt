@@ -18,6 +18,7 @@ import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -34,8 +35,8 @@ class XplorerViewModel @Inject constructor(
     private val _WBisLoading = MutableStateFlow(true)
     private var i = 2
 
-    private val _imageMap = mutableMapOf<String, StateFlow<UnsplashImage>>()
-    val imageMap: Map<String, StateFlow<UnsplashImage>> = _imageMap
+    private val _imageMap = MutableStateFlow<Map<String, UnsplashImage>>(emptyMap())
+    val imageMap: StateFlow<Map<String, UnsplashImage>> = _imageMap
 
     private val _UNSisLoading = MutableStateFlow(true)
     val isLoading: StateFlow<Boolean> =  combine(
@@ -49,15 +50,16 @@ class XplorerViewModel @Inject constructor(
         val actualContext = context.applicationContext
         fetchCountryInfo(actualContext)
         viewModelScope.launch {
-            _countryList
+            fetchImageFor(actualContext, _countryList
                 .filter { it.isNotEmpty() } // Esperamos a que haya datos
-                .first() // Solo la primera vez
-                .let { countryData ->
-                    // Pedimos una imagen por país (por ejemplo usando el nombre)
-                    countryData.forEach { data ->
-                        fetchImageFor(actualContext, data.country.value)
-                    }
-                }
+                .first()[0].country.value )// Solo la primera vez
+//                .let { countryData ->
+//                    // Pedimos una imagen por país (por ejemplo usando el nombre)
+//                    countryData.forEach { data ->
+//                        fetchImageFor(actualContext, data.country.value)
+//                    }
+//                }
+
         }
     }
 
@@ -90,7 +92,9 @@ class XplorerViewModel @Inject constructor(
                 context = actualContext,
                 query = keyword,
                 onSuccess = { image ->
-                    _imageMap[keyword] = MutableStateFlow(image)
+                    _imageMap.update { currentMap ->
+                        currentMap + (keyword to image)
+                    }
                 },
                 onFail = {
                     notifier.notify(
