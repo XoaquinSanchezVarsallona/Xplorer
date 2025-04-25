@@ -2,4 +2,12 @@
     <string name="app_name">Xplorer</string>
     <string name="unsplash_url">https://api.unsplash.com/</string>
     <string name="world_bank_url">https://api.worldbank.org/v2/</string>
+    <string name="landscape">landscape</string>
+    <string name="unsplash_content_is_null">Something went wrong loading image</string>
+    <string name="unsplash_api_network_error">Unsplash Api Network Error</string>
+    <string name="unsplash_bad_request">Bad request at Unsplash Api</string>
+    <string name="unsplash_fail_can_not_get_image">Can\'t get image</string>
+    <string name="country_card_description">little description</string>
+    <string name="search_bar_placeholder">Escribí tu búsqueda...</string>
+    <string name="explore_text">Explora Países</string>
 </resources>

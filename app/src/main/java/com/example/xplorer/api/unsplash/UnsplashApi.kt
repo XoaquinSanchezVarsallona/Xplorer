@@ -2,7 +2,6 @@ package com.example.xplorer.api.unsplash
 
 import android.content.Context
 import android.util.Log
-import android.widget.Toast
 import com.example.xplorer.Constants
 import com.example.xplorer.R
 import com.example.xplorer.api.Notifier
@@ -32,7 +31,7 @@ class UnsplashServiceImpl @Inject constructor() {
 
         val call: Call<UnsplashResponse> = service.getImage(
             query = query,
-            orientation = "landscape",
+            orientation = context.getString(R.string.landscape),
             apiKey = Constants.unsplashAccessKey
         )
 
@@ -44,23 +43,23 @@ class UnsplashServiceImpl @Inject constructor() {
                     if (image != null) {
                         onSuccess(image.results[0])
                     } else {
-                        notifier.notify("Something went wrong loading image", context)
+                        notifier.notify(context.getString(R.string.unsplash_content_is_null), context)
                         onFail()
                     }
                 } else if (response != null) {
-                    Log.e("Unsplash Api Network Error", response.errorBody().string())
-                    notifier.notify("Failed Auth on Unsplash API", context)
+                    Log.e(context.getString(R.string.unsplash_api_network_error), response.errorBody().string())
+                    notifier.notify(context.getString(R.string.unsplash_api_network_error), context)
                     onFail()
                 } else {
-                    notifier.notify("Bad request at Unsplash Api", context)
+                    notifier.notify(context.getString(R.string.unsplash_bad_request), context)
                     onFail()
                 }
 
             }
 
             override fun onFailure(t: Throwable?) {
-                notifier.notify("Can't get image", context)
-                Log.e("Unsplash Api ERROR", t.toString())
+                notifier.notify(context.getString(R.string.unsplash_fail_can_not_get_image), context)
+                Log.e(context.getString(R.string.unsplash_fail_can_not_get_image), t.toString())
                 onFail()
                 loadingFinished()            }
         })

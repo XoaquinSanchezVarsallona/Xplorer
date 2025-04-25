@@ -7,7 +7,6 @@ import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyRow
@@ -17,9 +16,11 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.unit.dp
 import androidx.compose.ui.util.lerp
 import com.example.xplorer.api.unsplash.UnsplashImage
 import com.example.xplorer.api.unsplash.UnsplashUrls
+import com.example.xplorer.ui.theme.MediumPadding
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlin.math.absoluteValue
@@ -52,8 +53,8 @@ import kotlin.math.absoluteValue
 fun CountryCarousel(imageMap : Map<String, UnsplashImage>) {
     val listState = rememberLazyListState()
     val screenWidth = LocalConfiguration.current.screenWidthDp.dp
-    val itemSpacing = 16.dp
-    val itemWidth = screenWidth * 0.7f // Mismo ancho que tu tarjeta
+    val itemSpacing = MediumPadding
+    val itemWidth = screenWidth * 0.7f
 
     val coroutineScope = rememberCoroutineScope()
 
@@ -136,7 +137,7 @@ fun CountryCarouselPreview() {
         modifier = Modifier
             .fillMaxSize()
             .background(Color.LightGray)
-            .padding(vertical = 16.dp)
+            .padding(vertical = MediumPadding)
     ) {
         CountryCarousel(countryMap)
     }

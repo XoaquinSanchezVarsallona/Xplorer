@@ -10,6 +10,7 @@ import androidx.compose.material3.BadgedBox
 import androidx.compose.material3.Icon
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
+import androidx.compose.material3.NavigationBarItemDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -20,6 +21,10 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.compose.rememberNavController
 import com.example.xplorer.navigator.XplorerScreens
+import com.example.xplorer.ui.theme.ComponentOrange
+import com.example.xplorer.ui.theme.FocusIcon
+import com.example.xplorer.ui.theme.FocusedIconColor
+import com.example.xplorer.ui.theme.NavButtomBarColor
 import com.example.xplorer.ui.theme.XplorerTheme
 
 
@@ -65,7 +70,9 @@ fun TabView(tabBarItems: List<TabBarItem>, onNavigate: (String) -> Unit) {
         mutableIntStateOf(0)
     }
 
-    NavigationBar {
+    NavigationBar (
+        containerColor = NavButtomBarColor
+    ) {
         tabBarItems.forEachIndexed { index, tabBarItem ->
             NavigationBarItem(
                 selected = selectedTabIndex == index,
@@ -82,7 +89,15 @@ fun TabView(tabBarItems: List<TabBarItem>, onNavigate: (String) -> Unit) {
                         badgeAmount = tabBarItem.badgeAmount
                     )
                 },
-                label = { Text(tabBarItem.title) })
+                label = { Text(tabBarItem.title) },
+                colors = NavigationBarItemDefaults.colors(
+                    selectedIconColor = FocusedIconColor,
+                    unselectedIconColor = ComponentOrange,
+                    selectedTextColor = ComponentOrange,
+                    unselectedTextColor = FocusedIconColor,
+                    indicatorColor = FocusIcon
+                )
+            )
         }
     }
 }

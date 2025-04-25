@@ -13,11 +13,15 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil3.compose.AsyncImage
 import coil3.request.ImageRequest
 import coil3.request.crossfade
+import com.example.xplorer.R
+import com.example.xplorer.ui.theme.MediumPadding
+import com.example.xplorer.ui.theme.SmallPadding
 import com.example.xplorer.ui.theme.Typography
 
 @Composable
@@ -28,11 +32,10 @@ fun CountryCard(name: String, image: String) {
         modifier = Modifier
             .width((currentWidth * 0.7).dp)
             .height((currentHeight * 0.7).dp)
-            .clip(RoundedCornerShape(16.dp))
-            .shadow(16.dp, RoundedCornerShape(16.dp))
+            .clip(RoundedCornerShape(MediumPadding))
+            .shadow(MediumPadding, RoundedCornerShape(MediumPadding))
             .animateContentSize()
     ) {
-        // Imagen de fondo
         AsyncImage(
             model = ImageRequest.Builder(LocalContext.current)
                 .data(image)
@@ -41,12 +44,10 @@ fun CountryCard(name: String, image: String) {
             contentDescription = "Background image of this country card.",
             modifier = Modifier
                 .fillMaxSize()
-                .clip(RoundedCornerShape(16.dp))
+                .clip(RoundedCornerShape(MediumPadding))
                 .background(Color.LightGray),
             contentScale = ContentScale.Crop
         )
-
-        // 🔥 Degradado oscuro en la parte baja
         Box(
             modifier = Modifier
                 .fillMaxSize()
@@ -58,15 +59,14 @@ fun CountryCard(name: String, image: String) {
                 )
         )
 
-        // Texto del país y descripción
         Box(
             modifier = Modifier
                 .fillMaxWidth()
                 .align(Alignment.BottomStart)
-                .padding(12.dp)
+                .padding(MediumPadding)
         ) {
             Column (
-                modifier = Modifier.padding(8.dp)
+                modifier = Modifier.padding(SmallPadding)
             ) {
                 Text(
                     text = name,
@@ -74,9 +74,9 @@ fun CountryCard(name: String, image: String) {
                     style = Typography.titleLarge
 
                 )
-                Spacer(Modifier.height(4.dp))
+                Spacer(Modifier.height(SmallPadding))
                 Text(
-                    text = "little description",
+                    text = stringResource(R.string.country_card_description),
                     color = Color.White.copy(alpha = 0.9f),
                     style = Typography.bodySmall
                 )
@@ -100,7 +100,7 @@ fun CountryCardPreview() {
         modifier = Modifier
             .fillMaxSize()
             .background(Color.White)
-            .padding(16.dp)
+            .padding(MediumPadding)
     ) {
         CountryCard(
             name = "Argentina",

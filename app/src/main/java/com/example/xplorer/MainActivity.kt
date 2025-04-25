@@ -11,6 +11,7 @@ import androidx.fragment.app.FragmentActivity
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.compose.rememberNavController
 import com.example.xplorer.navigator.NavHostComposable
+import com.example.xplorer.ui.theme.BackgroundColor
 import com.example.xplorer.ui.theme.XplorerTheme
 import com.example.xplorer.viewModels.XplorerViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -21,7 +22,6 @@ class MainActivity : FragmentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-            // Initialize Hilt
             val viewModel : XplorerViewModel = hiltViewModel<XplorerViewModel>()
             viewModel.initializeData(this)
 
@@ -30,7 +30,8 @@ class MainActivity : FragmentActivity() {
             XplorerTheme {
                 Scaffold(
                     bottomBar = {BottomBar { navController.navigate(it) }},
-                    modifier = Modifier.fillMaxSize()
+                    modifier = Modifier.fillMaxSize(),
+                    containerColor = BackgroundColor
                 ) { innerPadding ->
                     NavHostComposable(
                         innerPadding = innerPadding,
