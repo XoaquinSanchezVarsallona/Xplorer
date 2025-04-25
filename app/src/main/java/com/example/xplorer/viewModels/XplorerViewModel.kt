@@ -1,11 +1,9 @@
 package com.example.xplorer.viewModels
 
 import android.content.Context
-import android.view.View
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.xplorer.api.Notifier
-import com.example.xplorer.api.ToastNotifier
 import com.example.xplorer.api.unsplash.UnsplashImage
 import com.example.xplorer.api.unsplash.UnsplashServiceImpl
 import com.example.xplorer.api.world_bank.WorldBankData
@@ -31,7 +29,7 @@ class XplorerViewModel @Inject constructor(
 
     private val _countryList = MutableStateFlow<List<WorldBankData>> (emptyList())
     val countryList : StateFlow<List<WorldBankData>> = _countryList
-
+    private var slice = 0
     private val _WBisLoading = MutableStateFlow(true)
     private var i = 2
 
@@ -50,15 +48,21 @@ class XplorerViewModel @Inject constructor(
         val actualContext = context.applicationContext
         fetchCountryInfo(actualContext)
         viewModelScope.launch {
-            fetchImageFor(actualContext, _countryList
-                .filter { it.isNotEmpty() } // Esperamos a que haya datos
-                .first()[0].country.value )// Solo la primera vez
-//                .let { countryData ->
-//                    // Pedimos una imagen por país (por ejemplo usando el nombre)
-//                    countryData.forEach { data ->
-//                        fetchImageFor(actualContext, data.country.value)
-//                    }
-//                }
+            val fetchList = _countryList
+                .filter { it.isNotEmpty() }
+                .first()
+                .slice(IntRange(slice * 10 , (slice + 1) * 10))
+
+            slice ++
+
+            fetchList.let { countryData ->
+                // Pedimos una imagen por país (por ejemplo usando el nombre)
+                countryData.forEach { data ->
+                    fetchImageFor(actualContext, data.country.value)
+                }
+            }
+
+
 
         }
     }

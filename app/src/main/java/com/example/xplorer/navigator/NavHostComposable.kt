@@ -1,6 +1,5 @@
  package com.example.xplorer.navigator
 
- import CountryCardPreview
  import androidx.compose.foundation.layout.PaddingValues
  import androidx.compose.foundation.layout.fillMaxSize
  import androidx.compose.foundation.layout.padding
@@ -11,10 +10,14 @@
  import androidx.navigation.compose.NavHost
  import androidx.navigation.compose.composable
  import com.example.xplorer.ui.pages.HomePage
+ import com.example.xplorer.viewModels.XplorerViewModel
 
 
  @Composable
- fun NavHostComposable (innerPadding: PaddingValues, navController: NavHostController ) {
+ fun NavHostComposable (innerPadding: PaddingValues,
+                        navController: NavHostController,
+                        sharedViewModel: XplorerViewModel
+ ){
      NavHost(
          navController = navController,
          startDestination = XplorerScreens.Login.name,
@@ -24,7 +27,7 @@
              .padding(20.dp)
      ) {
          composable (route= XplorerScreens.Login.name) {
-             HomePage()
+             HomePage(viewModel = sharedViewModel)
          }
          composable(route = XplorerScreens.Home.name) {
  //            MainMenu(

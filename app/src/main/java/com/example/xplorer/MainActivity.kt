@@ -2,7 +2,6 @@ package com.example.xplorer
 
 import BottomBar
 import android.os.Bundle
-import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.fillMaxSize
@@ -33,7 +32,11 @@ class MainActivity : FragmentActivity() {
                     bottomBar = {BottomBar { navController.navigate(it) }},
                     modifier = Modifier.fillMaxSize()
                 ) { innerPadding ->
-                    NavHostComposable(innerPadding = innerPadding, navController = navController)
+                    NavHostComposable(
+                        innerPadding = innerPadding,
+                        navController = navController,
+                        sharedViewModel = viewModel
+                    )
                 }
             }
         }
