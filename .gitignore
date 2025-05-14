@@ -6,6 +6,7 @@
 app/build
 app/src/main/res/values/keys.xml
 app/src/main/java/com/example/xplorer/Constants.kt
+app/src/main/java/com/example/xplorer/google_services.json
 
 # Log file
 *.log

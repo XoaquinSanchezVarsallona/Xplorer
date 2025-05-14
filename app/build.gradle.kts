@@ -3,6 +3,7 @@ plugins {
     alias(libs.plugins.kotlin.android)
     id("dagger.hilt.android.plugin")
     id("kotlin-kapt")
+    id("com.google.gms.google-services")
 }
 
 android {
@@ -63,4 +64,10 @@ dependencies {
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
 
+    implementation(platform("com.google.firebase:firebase-bom:33.0.0"))
+    implementation("com.google.firebase:firebase-auth-ktx")
+    implementation("androidx.credentials:credentials-play-services-auth:1.5.0")
+
+    // ... dependencias de prueba ...
+    androidTestImplementation("androidx.credentials:credentials-play-services-auth:1.5.0")
 }
