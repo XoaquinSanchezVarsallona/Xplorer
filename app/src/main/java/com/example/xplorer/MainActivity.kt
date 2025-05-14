@@ -17,12 +17,16 @@ import com.example.xplorer.ui.theme.BackgroundColor
 import com.example.xplorer.ui.theme.XplorerTheme
 import com.example.xplorer.viewModels.XplorerViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import com.google.firebase.FirebaseApp
+
+
 
 @AndroidEntryPoint
 class MainActivity : FragmentActivity() {
     @RequiresApi(Build.VERSION_CODES.UPSIDE_DOWN_CAKE)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        FirebaseApp.initializeApp(this)
         enableEdgeToEdge()
         setContent {
             val viewModel : XplorerViewModel = hiltViewModel<XplorerViewModel>()
