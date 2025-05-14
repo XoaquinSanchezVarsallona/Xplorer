@@ -21,9 +21,10 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.compose.rememberNavController
 import com.example.xplorer.navigator.XplorerScreens
-import com.example.xplorer.ui.theme.ComponentOrange
+import com.example.xplorer.ui.theme.UnselectedColor
 import com.example.xplorer.ui.theme.FocusIcon
 import com.example.xplorer.ui.theme.FocusedIconColor
+import com.example.xplorer.ui.theme.Greyscale500
 import com.example.xplorer.ui.theme.NavButtomBarColor
 import com.example.xplorer.ui.theme.XplorerTheme
 
@@ -48,9 +49,9 @@ fun XplorerBottomBarPreviewLight() {
 fun BottomBar(
     onNavigate: (String) -> Unit,
 ) {
-    val homeTab = TabBarItem(title = XplorerScreens.Login.name, selectedIcon = Icons.Filled.Home, unselectedIcon = Icons.Outlined.Home)
-    val rankingTab = TabBarItem(title = XplorerScreens.Favorite.name, selectedIcon = Icons.Filled.Favorite, unselectedIcon = Icons.Outlined.Favorite)
-    val profileTab = TabBarItem(title = XplorerScreens.Profile.name, selectedIcon = Icons.Filled.Person, unselectedIcon = Icons.Outlined.Person)
+    val homeTab = TabBarItem(title = XplorerScreens.Login.name, selectedIcon = Icons.Filled.Home, unselectedIcon = Icons.Filled.Home)
+    val rankingTab = TabBarItem(title = XplorerScreens.Favorite.name, selectedIcon = Icons.Filled.Favorite, unselectedIcon = Icons.Filled.Favorite)
+    val profileTab = TabBarItem(title = XplorerScreens.Profile.name, selectedIcon = Icons.Filled.Person, unselectedIcon = Icons.Filled.Person)
 
     val tabBarItems = listOf(homeTab, rankingTab, profileTab)
 
@@ -92,9 +93,9 @@ fun TabView(tabBarItems: List<TabBarItem>, onNavigate: (String) -> Unit) {
                 label = { Text(tabBarItem.title) },
                 colors = NavigationBarItemDefaults.colors(
                     selectedIconColor = FocusedIconColor,
-                    unselectedIconColor = ComponentOrange,
-                    selectedTextColor = ComponentOrange,
-                    unselectedTextColor = FocusedIconColor,
+                    unselectedIconColor = UnselectedColor,
+                    selectedTextColor = Greyscale500,
+                    unselectedTextColor = Greyscale500,
                     indicatorColor = FocusIcon
                 )
             )

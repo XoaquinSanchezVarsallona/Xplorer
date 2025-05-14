@@ -1,12 +1,12 @@
 package com.example.xplorer.ui.theme
 
 import androidx.compose.ui.graphics.Color
-val BackgroundColor = Color(0xEBF5AC41)
-val NavButtomBarColor = Color(0xEBEA8417)
+val BackgroundColor = Color(0x3413A8CC)
+val NavButtomBarColor = Color(0x3717E3EA)
 
-val ComponentOrange = Color(0xFF6200EE)
-val FocusedIconColor = Color(0xFF4D00B4)
-val FocusIcon = Color(0xFF8640EA)
+val UnselectedColor = Color(0xA617AEEA)
+val FocusedIconColor = Color(0x861D85D7)
+val FocusIcon = Color(0x6117E3EA)
 
 val Primary500= Color(0x3E263066)
 val Primary600 = Color(0x2B263066)

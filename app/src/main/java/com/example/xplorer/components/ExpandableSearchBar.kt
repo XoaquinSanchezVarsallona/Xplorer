@@ -31,7 +31,7 @@ import com.example.xplorer.R
 import com.example.xplorer.api.world_bank.Country
 import com.example.xplorer.api.world_bank.WorldBankData
 import com.example.xplorer.ui.theme.BackgroundColor
-import com.example.xplorer.ui.theme.ComponentOrange
+import com.example.xplorer.ui.theme.UnselectedColor
 import com.example.xplorer.ui.theme.CountryCardHeight
 import com.example.xplorer.ui.theme.Greyscale400
 import com.example.xplorer.ui.theme.MediumPadding
@@ -62,12 +62,12 @@ fun ExpandableSearchBar (modifier: Modifier, items : List<WorldBankData>, onItem
             textStyle = Typography.titleMedium,
             modifier = Modifier
                 .fillMaxWidth()
-                .background(ComponentOrange),
+                .background(UnselectedColor),
             colors = TextFieldDefaults.colors(
-                focusedContainerColor = ComponentOrange, // Fondo cuando está enfocado
+                focusedContainerColor = UnselectedColor, // Fondo cuando está enfocado
                 focusedPlaceholderColor = Greyscale400,
                 unfocusedPlaceholderColor = Greyscale400,
-                unfocusedContainerColor = ComponentOrange, // Fondo cuando no está enfocado
+                unfocusedContainerColor = UnselectedColor, // Fondo cuando no está enfocado
                 focusedTextColor = Greyscale400, // Color del texto cuando está enfocado
                 unfocusedTextColor = Greyscale400, // Color del texto cuando no está enfocado
                 focusedIndicatorColor = Color.Transparent,
