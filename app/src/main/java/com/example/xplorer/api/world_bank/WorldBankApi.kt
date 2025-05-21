@@ -14,6 +14,9 @@ import retrofit.GsonConverterFactory
 import retrofit.Response
 import retrofit.Retrofit
 import javax.inject.Inject
+import kotlin.coroutines.resume
+import kotlin.coroutines.resumeWithException
+import kotlin.coroutines.suspendCoroutine
 
 class WorldBankServiceImpl @Inject constructor() {
     fun getTourismMostVisitedCountries (
@@ -70,4 +73,27 @@ class WorldBankServiceImpl @Inject constructor() {
 
         })
     }
+
+    suspend fun fetchTourismCountriesSuspend(context: Context): List<WorldBankData> =
+        suspendCoroutine { continuation ->
+            getTourismMostVisitedCountries(
+                page = 1,
+                notifier = object : Notifier {
+                    override fun notify(message: String, context: Context) {
+                        // puedes loguearlo si quieres
+                        Log.e("Notifier", message)
+                    }
+                },
+                context = context,
+                onSuccess = { countries ->
+                    continuation.resume(countries)
+                },
+                onFail = {
+                    continuation.resumeWithException(Exception("Error fetching countries"))
+                },
+                loadingFinished = {
+                    // no necesitas hacer nada aquí
+                }
+            )
+        }
 }
