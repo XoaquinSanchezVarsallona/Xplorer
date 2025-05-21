@@ -1,5 +1,6 @@
 package com.example.xplorer.room.dao
 
+import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
@@ -15,5 +16,5 @@ interface CountryDao {
     suspend fun updateCountry(country: Country)
 
     @Query("SELECT * FROM countries")
-    suspend fun getAllCountries(): List<Country>
+    fun getAllCountries(): LiveData<List<Country>>
 }
