@@ -5,7 +5,17 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "countries")
 data class Country(
-    @PrimaryKey(autoGenerate = true) val id: Int = 0,
+    @PrimaryKey val id : String,
     val name: String,
-    val info: String
-)
+    val tourism : Double?,
+    val attractions: String,
+    val culture: String,
+    val history: String,
+) {
+    fun countryCodeToFlagEmoji(): String {
+        val countryCode = id
+        val first = countryCode[0].uppercaseChar() - 'A' + 0x1F1E6
+        val second = countryCode[1].uppercaseChar() - 'A' + 0x1F1E6
+        return String(Character.toChars(first)) + String(Character.toChars(second))
+    }
+}

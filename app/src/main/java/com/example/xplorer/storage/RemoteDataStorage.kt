@@ -32,21 +32,7 @@ abstract class XplorerDatabase : RoomDatabase() {
                     context.applicationContext,
                     XplorerDatabase::class.java,
                     "xplorer_database"
-                )
-                    .addCallback(object : RoomDatabase.Callback() {
-                        override fun onCreate(db: SupportSQLiteDatabase) {
-                            super.onCreate(db)
-                            val wbApi = WorldBankServiceImpl()
-                            CoroutineScope(Dispatchers.IO).launch {
-                                val database = getDatabase(context)
-                                val countries = wbApi.fetchTourismCountriesSuspend(context)
-                                //falta la otra api que me busque la info de los paises
-                                //juntar info con el pais y ir guardando en la base de datos
-//                                database.countryDao().insertAll(countries)
-                            }
-                        }
-                    })
-                    .build()
+                ).build()
                 INSTANCE = instance
                 instance
             }

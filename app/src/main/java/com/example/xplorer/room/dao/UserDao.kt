@@ -11,7 +11,7 @@ import com.example.xplorer.room.entities.User
 @Dao
 interface UserDao {
     @Query("SELECT password FROM users where email = :email")
-    fun getUserCredential(email : String): LiveData<List<Credentials>>
+    fun getUserCredential(email : String): LiveData<String>
 
     @Insert
     suspend fun insertUser(user: User)
@@ -24,7 +24,3 @@ interface UserDao {
 }
 
 
-data class Credentials (
-    val email: String,
-    val password: String
-)
