@@ -1,9 +1,9 @@
 package com.example.xplorer.viewModels
 
 import android.content.Context
-import androidx.compose.ui.platform.LocalContext
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asFlow
+import androidx.lifecycle.viewModelScope
 import com.example.xplorer.api.Notifier
 import com.example.xplorer.api.unsplash.UnsplashImage
 import com.example.xplorer.api.unsplash.UnsplashServiceImpl
@@ -13,6 +13,8 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import javax.inject.Inject
 
@@ -38,5 +40,31 @@ class HomeViewModel @Inject constructor (
 
     private val _imageMap = MutableStateFlow<Map<String, UnsplashImage>>(emptyMap())
     val imageMap: StateFlow<Map<String, UnsplashImage>> = _imageMap
+    private var loading = MutableStateFlow(true)
+
+    fun fetchImageForCountry(countryName: String) {
+        val actualContext = context.applicationContext
+        viewModelScope.launch {
+            UNSapi.getImage(
+                context = actualContext,
+                query = countryName,
+                onSuccess = { image ->
+                    _imageMap.update { currentMap ->
+                        currentMap + (countryName to image)
+                    }
+                },
+                onFail = {
+                    notifier.notify(
+                        "No se pudo obtener la imagen para '$countryName'",
+                        context = actualContext
+                    )
+                },
+                loadingFinished = {
+                    loading.value = false
+                },
+                notifier = notifier
+            )
+        }
+    }
 }
 

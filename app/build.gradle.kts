@@ -34,7 +34,7 @@ android {
         jvmTarget = "17"
     }
 }
-val roomVersion = "2.6.1"
+val roomVersion = "2.7.1"
 
 dependencies {
     implementation(libs.androidx.core.ktx)
@@ -69,7 +69,7 @@ dependencies {
     implementation("androidx.room:room-ktx:$roomVersion")
     kapt("androidx.room:room-compiler:$roomVersion")
 
-    implementation(platform("com.google.firebase:firebase-bom:33.0.0"))
+    implementation(platform("com.google.firebase:firebase-bom:33.14.0"))
     implementation("com.google.firebase:firebase-auth-ktx")
     implementation("androidx.credentials:credentials-play-services-auth:1.5.0")
 

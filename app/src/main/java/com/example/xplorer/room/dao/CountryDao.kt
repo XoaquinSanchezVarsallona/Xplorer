@@ -15,6 +15,6 @@ interface CountryDao {
     @Update
     suspend fun updateCountry(country: Country)
 
-    @Query("SELECT * FROM countries")
+    @Query("SELECT * FROM countries ORDER BY RANDOM()")
     fun getAllCountries(): LiveData<List<Country>>
 }

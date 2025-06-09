@@ -1,7 +1,6 @@
 package com.example.xplorer.room
 
 import android.content.Context
-import androidx.room.Room.databaseBuilder
 import com.example.xplorer.api.Notifier
 import com.example.xplorer.api.ToastNotifier
 import com.example.xplorer.api.wikipedia.WikipediaServiceImpl
