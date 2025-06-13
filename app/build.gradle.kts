@@ -47,6 +47,8 @@ dependencies {
     implementation(libs.androidx.material3)
     implementation(libs.androidx.navigation.compose)
 
+    implementation("androidx.biometric:biometric:1.2.0-alpha05")
+
     implementation("io.coil-kt.coil3:coil-compose:3.0.0")
     implementation("io.coil-kt.coil3:coil-network-okhttp:3.0.0")
 
@@ -72,7 +74,7 @@ dependencies {
     implementation(platform("com.google.firebase:firebase-bom:33.14.0"))
     implementation("com.google.firebase:firebase-auth-ktx")
     implementation("androidx.credentials:credentials-play-services-auth:1.5.0")
+    implementation("com.google.android.libraries.identity.googleid:googleid:1.1.1")
 
-    // ... dependencias de prueba ...
     androidTestImplementation("androidx.credentials:credentials-play-services-auth:1.5.0")
 }

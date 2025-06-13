@@ -1,5 +1,6 @@
  package com.example.xplorer.navigator
 
+ import androidx.annotation.RequiresApi
  import androidx.compose.foundation.layout.PaddingValues
  import androidx.compose.foundation.layout.fillMaxSize
  import androidx.compose.foundation.layout.padding
@@ -11,8 +12,9 @@
  import com.example.xplorer.ui.pages.HomePage
  import com.example.xplorer.ui.theme.LargePadding
  import com.example.xplorer.viewModels.XplorerViewModel
+ import android.os.Build
 
-
+ @RequiresApi(Build.VERSION_CODES.UPSIDE_DOWN_CAKE)
  @Composable
  fun NavHostComposable (innerPadding: PaddingValues,
                         navController: NavHostController,
