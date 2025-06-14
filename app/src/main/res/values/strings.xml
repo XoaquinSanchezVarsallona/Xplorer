@@ -2,7 +2,7 @@
     <string name="app_name">Xplorer</string>
     <string name="unsplash_url">https://api.unsplash.com/</string>
     <string name="world_bank_url">https://api.worldbank.org/v2/</string>
-    <string name="wikipedia_url">https://en.wikipedia.org/w/rest.php/v1/</string>
+    <string name="wikipedia_url">https://en.wikipedia.org/api/rest_v1/page/</string>
     <string name="landscape">landscape</string>
     <string name="unsplash_content_is_null">Something went wrong loading image</string>
     <string name="unsplash_api_network_error">Unsplash Api Network Error</string>

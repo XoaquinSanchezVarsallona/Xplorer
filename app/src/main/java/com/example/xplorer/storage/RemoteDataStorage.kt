@@ -11,7 +11,7 @@ import com.example.xplorer.room.entities.Country
 import com.example.xplorer.room.entities.Favorite
 import com.example.xplorer.room.entities.User
 
-@Database(entities = [Country::class, User::class, Favorite::class], version = 1)
+@Database(entities = [Country::class, User::class, Favorite::class], version = 2, exportSchema = false)
 abstract class XplorerDatabase : RoomDatabase() {
     abstract fun countryDao(): CountryDao
     abstract fun userDao(): UserDao
@@ -27,7 +27,7 @@ abstract class XplorerDatabase : RoomDatabase() {
                     context.applicationContext,
                     XplorerDatabase::class.java,
                     "xplorer_database"
-                ).build()
+                ).fallbackToDestructiveMigration().build()
                 INSTANCE = instance
                 instance
             }

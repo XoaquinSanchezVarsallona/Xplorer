@@ -26,19 +26,19 @@ class CountryInitializer @Inject constructor(
 
     fun initialize () {
         CoroutineScope(Dispatchers.IO).launch {
-            val basicCountryInfo = worldBankService.fetchTourismCountriesSuspend(context)
+            val basicCountryInfo = worldBankService.fetchAllTourismCountries(context)
             val countriesInfo =wikipediaServiceImpl.getData(basicCountryInfo, context, notifier)
             val countries = countriesInfo.map { (worldBankData, countryData) ->
                 Country(
                     id = worldBankData.country.id,
                     name = worldBankData.country.value,
                     tourism = worldBankData.value,
-                    attractions = countryData.attractions,
-                    culture = countryData.culture,
-                    history = countryData.history
+                    details = countryData.details
                 )
             }
             countries.forEach {countryDao.insertCountry(it)}
         }
     }
+
+
 }

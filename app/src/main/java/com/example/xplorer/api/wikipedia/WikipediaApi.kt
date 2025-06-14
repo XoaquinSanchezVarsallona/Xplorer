@@ -1,6 +1,7 @@
 package com.example.xplorer.api.wikipedia
 
 import android.content.Context
+import android.util.Log
 import com.example.xplorer.R
 import com.example.xplorer.api.Notifier
 import com.example.xplorer.api.world_bank.WorldBankData
@@ -20,28 +21,15 @@ class WikipediaServiceImpl @Inject constructor() {
         val map = mutableMapOf<WorldBankData, CountryData>()
 
         countries.forEach { wbData ->
-            val countryName = wbData.country.id
-            val attraction = getExtraitSuspend(
-                query = "places to visit in $countryName",
+            val countryName = wbData.country.value
+            val details = getExtraitSuspend(
+                query = "$countryName",
                 context = context,
                 notifier = notifier
             )
-            val culture = getExtraitSuspend(
-                query = "culture of $countryName",
-                context = context,
-                notifier = notifier
-            )
-            val history = getExtraitSuspend(
-                query = "history of $countryName",
-                context = context,
-                notifier = notifier
-            )
-
 
             map[wbData] = CountryData(
-                attractions = attraction,
-                culture = culture,
-                history = history
+                details = details
             )
         }
         return map
@@ -60,23 +48,31 @@ class WikipediaServiceImpl @Inject constructor() {
             .build()
 
         val service = retrofit.create(WikipediaService::class.java)
-        val extraitData = service.getInfo(query)
-
-        extraitData.enqueue(object : Callback<ExtraitData> {
-            override fun onResponse(response: retrofit.Response<ExtraitData>?, retrofit: retrofit.Retrofit?) {
-                if (response != null && response.isSuccess) {
-                    deferred.complete(response.body()!!.extrait)
-                } else {
-                    notifier.notify("Failed to fetch data for query: $query", context)
-                    deferred.completeExceptionally(Exception("Failed to fetch data"))
+        try {
+            val extraitData = service.getInfo(query)
+            extraitData.enqueue(object : Callback<ExtraitData> {
+                override fun onResponse(response: retrofit.Response<ExtraitData>?, retrofit: retrofit.Retrofit?) {
+                    if (response != null && response.isSuccess && response.body() != null) {
+                        val details =  response.body()?.extract ?: "there is nothing in wikipedia"
+                        deferred.complete(details)
+                    } else {
+                        val details = "there is nothing in wikipedia"
+                        deferred.complete(details)
+                    }
                 }
-            }
 
-            override fun onFailure(t: Throwable?) {
-                notifier.notify("Failed to fetch data for query: $query", context)
-                deferred.completeExceptionally(t ?: Exception("Unknown error"))
-            }
-        })
+                override fun onFailure(t: Throwable?) {
+                    val errorMessage = "Failed to fetch data for query: $query"
+                    notifier.notify(errorMessage, context)
+                    deferred.completeExceptionally(t ?: Exception(errorMessage))
+                }
+            })
+        } catch (e: Exception) {
+            val errorMessage = "Error while making API call: ${e.message}"
+            Log.e("WikipediaServiceImpl", errorMessage, e)
+            deferred.completeExceptionally(e)
+        }
+
 
         return deferred.await()
     }

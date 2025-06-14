@@ -11,11 +11,14 @@ import com.example.xplorer.room.CountryInitializer
 import com.example.xplorer.storage.XplorerDatabase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.shareIn
+import kotlinx.coroutines.flow.take
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
 import javax.inject.Inject
 
 @HiltViewModel
@@ -29,12 +32,33 @@ class HomeViewModel @Inject constructor (
     val countries = database.countryDao().getAllCountries().asFlow()
 
     init {
-        runBlocking {
-            countries.collect { countries ->
-                if (countries.isEmpty()) {
-                    countryInitializer.initialize()
+        val sharedCountries = countries.shareIn(
+            scope = viewModelScope,
+            started = SharingStarted.WhileSubscribed(),
+            replay = 1
+        )
+
+        viewModelScope.launch(Dispatchers.IO) {
+            sharedCountries
+                .take(1)
+                .collect { countries ->
+                    if (countries.isEmpty()) {
+                        countryInitializer.initialize()
+                    }
                 }
-            }
+        }
+
+        // 2) Fetch de imágenes
+        viewModelScope.launch(Dispatchers.IO) {
+            sharedCountries
+                .take(15)
+                .collect { countries ->
+                    countries.forEach { country ->
+                        if (!_imageMap.value.containsKey(country.name)) {
+                            fetchImageForCountry(country.name)
+                        }
+                    }
+                }
         }
     }
 
@@ -42,7 +66,7 @@ class HomeViewModel @Inject constructor (
     val imageMap: StateFlow<Map<String, UnsplashImage>> = _imageMap
     private var loading = MutableStateFlow(true)
 
-    fun fetchImageForCountry(countryName: String) {
+    private fun fetchImageForCountry(countryName: String) {
         val actualContext = context.applicationContext
         viewModelScope.launch {
             UNSapi.getImage(
@@ -59,10 +83,8 @@ class HomeViewModel @Inject constructor (
                         context = actualContext
                     )
                 },
-                loadingFinished = {
-                    loading.value = false
-                },
-                notifier = notifier
+                notifier = notifier,
+                loadingFinished = { loading.value = false }
             )
         }
     }

@@ -1,11 +1,12 @@
 package com.example.xplorer.api.wikipedia
 
+import com.google.gson.annotations.SerializedName
+
 data class CountryData (
-    val attractions: String,
-    val culture: String,
-    val history: String
+    val details : String
 )
 
 data class ExtraitData (
-    val extrait : String
+    @SerializedName("extract")
+    val extract : String
 )

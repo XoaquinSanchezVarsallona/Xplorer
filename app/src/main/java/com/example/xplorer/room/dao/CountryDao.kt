@@ -17,4 +17,7 @@ interface CountryDao {
 
     @Query("SELECT * FROM countries ORDER BY RANDOM()")
     fun getAllCountries(): LiveData<List<Country>>
+
+    @Query("SELECT * FROM countries WHERE id = :id")
+    fun getCountryById(id: String): LiveData<Country>
 }

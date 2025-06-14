@@ -2,12 +2,12 @@ package com.example.xplorer.api.wikipedia
 
 import retrofit.http.GET
 import retrofit.Call
-import retrofit.http.Query
+import retrofit.http.Path
 
 interface WikipediaService {
 
-    @GET("search/title?/q={query}&format=json")
+    @GET("summary/{q}")
     fun getInfo(
-        @Query("country") query : String
+        @Path("q") query: String,
     ) : Call<ExtraitData>
 }

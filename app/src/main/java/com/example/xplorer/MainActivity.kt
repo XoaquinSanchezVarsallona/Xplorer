@@ -43,7 +43,6 @@ class MainActivity : FragmentActivity() {
                     NavHostComposable(
                         innerPadding = innerPadding,
                         navController = navController,
-                        sharedViewModel = viewModel
                     )
                 }
             }

@@ -8,9 +8,7 @@ data class Country(
     @PrimaryKey val id : String,
     val name: String,
     val tourism : Double?,
-    val attractions: String,
-    val culture: String,
-    val history: String,
+    val details : String,
 ) {
     fun countryCodeToFlagEmoji(): String {
         val countryCode = id
