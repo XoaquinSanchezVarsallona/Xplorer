@@ -53,6 +53,7 @@ dependencies {
     implementation("com.google.dagger:hilt-android:2.49")
     implementation(libs.googleid)
     implementation(libs.androidx.runtime.livedata)
+    implementation(libs.androidx.lifecycle.process)
     kapt("com.google.dagger:hilt-android-compiler:2.49")
 
     implementation("com.squareup.retrofit2:retrofit:2.9.0")

@@ -1,5 +1,6 @@
 package com.example.xplorer.ui.pages
 
+import android.Manifest
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -11,6 +12,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
@@ -19,7 +21,6 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.stringResource
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
-import androidx.navigation.compose.rememberNavController
 import com.example.xplorer.R
 import com.example.xplorer.api.world_bank.Country
 import com.example.xplorer.api.world_bank.WorldBankData
@@ -29,12 +30,24 @@ import com.example.xplorer.navigator.XplorerScreens
 import com.example.xplorer.ui.theme.Greyscale500
 import com.example.xplorer.ui.theme.MediumPadding
 import com.example.xplorer.viewModels.HomeViewModel
+import com.google.accompanist.permissions.ExperimentalPermissionsApi
+import com.google.accompanist.permissions.isGranted
+import com.google.accompanist.permissions.rememberPermissionState
 
+@OptIn(ExperimentalPermissionsApi::class)
 @Composable
 fun HomePage(navController: NavController) {
-    val viewModel = hiltViewModel<HomeViewModel>()
-    val imageMap by viewModel.imageMap.collectAsState(initial = emptyMap())
-    val countries by viewModel.countries.collectAsState(initial = emptyList())
+    val homeViewModel = hiltViewModel<HomeViewModel>()
+    val imageMap by homeViewModel.imageMap.collectAsState(initial = emptyMap())
+    val countries by homeViewModel.countries.collectAsState(initial = emptyList())
+
+    val postNotificationPermission = rememberPermissionState(permission = Manifest.permission.POST_NOTIFICATIONS)
+
+    LaunchedEffect(Unit) {
+        if (!postNotificationPermission.status.isGranted) {
+            postNotificationPermission.launchPermissionRequest()
+        }
+    }
 
     val items = countries.map {
         WorldBankData(Country(it.id, it.name), it.tourism)

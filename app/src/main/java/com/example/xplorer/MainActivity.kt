@@ -1,6 +1,8 @@
 package com.example.xplorer
 
 import BottomBar
+import android.app.NotificationChannel
+import android.app.NotificationManager
 import android.os.Build
 import android.os.Bundle
 import androidx.activity.compose.setContent
@@ -10,29 +12,35 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.Scaffold
 import androidx.compose.ui.Modifier
 import androidx.fragment.app.FragmentActivity
-import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.ProcessLifecycleOwner
 import androidx.navigation.compose.rememberNavController
 import com.example.xplorer.navigator.NavHostComposable
+import com.example.xplorer.notifications.AppLifecycleObserver
+import com.example.xplorer.notifications.notificationChannelID
 import com.example.xplorer.ui.theme.BackgroundColor
 import com.example.xplorer.ui.theme.XplorerTheme
-import com.example.xplorer.viewModels.XplorerViewModel
-import dagger.hilt.android.AndroidEntryPoint
 import com.google.firebase.FirebaseApp
-
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 
 @AndroidEntryPoint
 class MainActivity : FragmentActivity() {
     @RequiresApi(Build.VERSION_CODES.UPSIDE_DOWN_CAKE)
+    @Inject
+    lateinit var appLifecycleObserver: AppLifecycleObserver
+
+
+    @RequiresApi(Build.VERSION_CODES.UPSIDE_DOWN_CAKE)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         FirebaseApp.initializeApp(this)
+        createNotificationChannel()
         enableEdgeToEdge()
         setContent {
-            val viewModel : XplorerViewModel = hiltViewModel<XplorerViewModel>()
-            viewModel.initializeData(this)
-
             val navController = rememberNavController()
+            ProcessLifecycleOwner.get().lifecycle.addObserver(appLifecycleObserver)
+
 
             XplorerTheme {
                 Scaffold(
@@ -47,6 +55,16 @@ class MainActivity : FragmentActivity() {
                 }
             }
         }
+    }
+    private fun createNotificationChannel() {
+        val notificationChannel = NotificationChannel(
+            notificationChannelID,
+            "Xplorer Notification",
+            NotificationManager.IMPORTANCE_HIGH
+        )
+        val notificationManager = getSystemService(NOTIFICATION_SERVICE) as NotificationManager
+
+        notificationManager.createNotificationChannel(notificationChannel)
     }
 }
 

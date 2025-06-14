@@ -1,6 +1,5 @@
  package com.example.xplorer.navigator
 
- import android.media.MediaParser
  import android.os.Build
  import android.util.Log
  import androidx.annotation.RequiresApi
@@ -54,7 +53,6 @@
              Country(navController = navController ,id = countryId!!)
          }
          composable(route = XplorerScreens.Profile.route) {
-             // Profile()
          }
      }
  }
