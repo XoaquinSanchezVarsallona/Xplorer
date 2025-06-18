@@ -1,10 +1,7 @@
 package com.example.xplorer.components
 
-import CountryCard
 import androidx.compose.runtime.Composable
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.lazy.LazyListState
-import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.foundation.background

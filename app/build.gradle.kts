@@ -34,6 +34,7 @@ android {
         jvmTarget = "17"
     }
 }
+val roomVersion = "2.6.1"
 
 dependencies {
     implementation(libs.androidx.core.ktx)
@@ -46,11 +47,13 @@ dependencies {
     implementation(libs.androidx.material3)
     implementation(libs.androidx.navigation.compose)
 
-    implementation("io.coil-kt.coil3:coil-compose:3.0.0")
-    implementation("io.coil-kt.coil3:coil-network-okhttp:3.0.0")
+    implementation("io.coil-kt:coil-compose:2.4.0")
 
     implementation("androidx.hilt:hilt-navigation-compose:1.2.0")
     implementation("com.google.dagger:hilt-android:2.49")
+    implementation(libs.googleid)
+    implementation(libs.androidx.runtime.livedata)
+    implementation(libs.androidx.lifecycle.process)
     kapt("com.google.dagger:hilt-android-compiler:2.49")
 
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
@@ -63,10 +66,18 @@ dependencies {
     androidTestImplementation(libs.androidx.ui.test.junit4)
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
+    implementation("com.google.accompanist:accompanist-permissions:0.32.0")
 
-    implementation(platform("com.google.firebase:firebase-bom:33.0.0"))
-    implementation("com.google.firebase:firebase-auth-ktx")
-    implementation("androidx.credentials:credentials-play-services-auth:1.5.0")
+
+
+    implementation("androidx.biometric:biometric:1.2.0-alpha05")
+
+    implementation("androidx.room:room-runtime:$roomVersion")
+    implementation("androidx.room:room-ktx:$roomVersion")
+    kapt("androidx.room:room-compiler:$roomVersion")
+
+    implementation("com.google.firebase:firebase-auth-ktx:22.3.1")
+    implementation("androidx.credentials:credentials:1.2.0-beta01")
 
     // ... dependencias de prueba ...
     androidTestImplementation("androidx.credentials:credentials-play-services-auth:1.5.0")

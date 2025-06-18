@@ -89,7 +89,7 @@ fun ExpandableSearchBar (modifier: Modifier, items : List<WorldBankData>, onItem
                         modifier = Modifier
                             .fillMaxWidth()
                             .clickable {
-                                onItemSelected(item.country.value)
+                                onItemSelected(item.country.id)
                                 query = ""
                             }
                             .padding(vertical = SmallPadding, horizontal = MediumPadding)
