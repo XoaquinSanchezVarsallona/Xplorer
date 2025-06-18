@@ -12,6 +12,7 @@ import androidx.credentials.CustomCredential
 import androidx.credentials.GetCredentialRequest
 import androidx.credentials.exceptions.ClearCredentialException
 import androidx.credentials.exceptions.GetCredentialException
+import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.xplorer.R
@@ -46,9 +47,9 @@ class LoginViewModel @Inject constructor (
     private val _userData = MutableStateFlow(auth.currentUser)
     val userData = _userData.asStateFlow()
 
-    fun authenticate(context: Context) {
+    fun authenticate(activity : FragmentActivity) {
         biometricAuthManager.authenticate(
-            context,
+            activity,
             onError = {
                 _isAuthenticated.value = false
                 Toast.makeText(context, "There was an error in the authentication", Toast.LENGTH_SHORT).show()
@@ -63,7 +64,7 @@ class LoginViewModel @Inject constructor (
         )
     }
 
-    fun launchCredentialManager(currentContext: Context) {
+    fun launchCredentialManager() {
         val serverClientId = context.getString(R.string.google_service_id)
 
         val googleIdOption = GetGoogleIdOption.Builder()
@@ -78,7 +79,7 @@ class LoginViewModel @Inject constructor (
         viewModelScope.launch {
             try {
                 val result = credentialManager.getCredential(
-                    context = currentContext,
+                    context = context,
                     request = request
                 )
 

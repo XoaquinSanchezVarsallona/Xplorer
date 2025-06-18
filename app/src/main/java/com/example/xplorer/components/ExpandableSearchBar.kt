@@ -13,6 +13,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
@@ -64,12 +65,12 @@ fun ExpandableSearchBar (modifier: Modifier, items : List<WorldBankData>, onItem
                 .fillMaxWidth()
                 .background(UnselectedColor),
             colors = TextFieldDefaults.colors(
-                focusedContainerColor = UnselectedColor, // Fondo cuando está enfocado
-                focusedPlaceholderColor = Greyscale400,
-                unfocusedPlaceholderColor = Greyscale400,
-                unfocusedContainerColor = UnselectedColor, // Fondo cuando no está enfocado
-                focusedTextColor = Greyscale400, // Color del texto cuando está enfocado
-                unfocusedTextColor = Greyscale400, // Color del texto cuando no está enfocado
+                focusedContainerColor = MaterialTheme.colorScheme.secondary,
+                focusedPlaceholderColor = MaterialTheme.colorScheme.onSecondary,
+                unfocusedPlaceholderColor = MaterialTheme.colorScheme.onSecondary,
+                unfocusedContainerColor = MaterialTheme.colorScheme.secondary,
+                focusedTextColor = MaterialTheme.colorScheme.onSecondary,
+                unfocusedTextColor = MaterialTheme.colorScheme.onSecondary,
                 focusedIndicatorColor = Color.Transparent,
                 unfocusedIndicatorColor = Color.Transparent
             )

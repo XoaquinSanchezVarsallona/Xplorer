@@ -5,6 +5,7 @@ import androidx.compose.material.icons.filled.Person
 import androidx.compose.material3.Badge
 import androidx.compose.material3.BadgedBox
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.NavigationBarItemDefaults
@@ -46,9 +47,9 @@ fun XplorerBottomBarPreviewLight() {
 fun BottomBar(
     onNavigate: (String) -> Unit,
 ) {
-    val homeTab = TabBarItem(title = XplorerScreens.Login.name, selectedIcon = Icons.Filled.Home, unselectedIcon = Icons.Filled.Home)
+    val homeTab = TabBarItem(title = XplorerScreens.Home.name, selectedIcon = Icons.Filled.Home, unselectedIcon = Icons.Filled.Home)
     val rankingTab = TabBarItem(title = XplorerScreens.Favorite.name, selectedIcon = Icons.Filled.Favorite, unselectedIcon = Icons.Filled.Favorite)
-    val profileTab = TabBarItem(title = XplorerScreens.Profile.name, selectedIcon = Icons.Filled.Person, unselectedIcon = Icons.Filled.Person)
+    val profileTab = TabBarItem(title = XplorerScreens.Login.name, selectedIcon = Icons.Filled.Person, unselectedIcon = Icons.Filled.Person)
 
     val tabBarItems = listOf(homeTab, rankingTab, profileTab)
 
@@ -68,8 +69,8 @@ fun TabView(tabBarItems: List<TabBarItem>, onNavigate: (String) -> Unit) {
         mutableIntStateOf(0)
     }
 
-    NavigationBar (
-        containerColor = NavButtomBarColor
+    NavigationBar(
+        containerColor = MaterialTheme.colorScheme.surface
     ) {
         tabBarItems.forEachIndexed { index, tabBarItem ->
             NavigationBarItem(
@@ -87,13 +88,13 @@ fun TabView(tabBarItems: List<TabBarItem>, onNavigate: (String) -> Unit) {
                         badgeAmount = tabBarItem.badgeAmount
                     )
                 },
-                label = { Text(tabBarItem.title) },
+                label = { Text(tabBarItem.title, color = MaterialTheme.colorScheme.onSurface) },
                 colors = NavigationBarItemDefaults.colors(
-                    selectedIconColor = FocusedIconColor,
-                    unselectedIconColor = UnselectedColor,
-                    selectedTextColor = Greyscale500,
-                    unselectedTextColor = Greyscale500,
-                    indicatorColor = FocusIcon
+                    selectedIconColor = MaterialTheme.colorScheme.primary,
+                    unselectedIconColor = MaterialTheme.colorScheme.onSurface,
+                    selectedTextColor = MaterialTheme.colorScheme.primary,
+                    unselectedTextColor = MaterialTheme.colorScheme.onSurface,
+                    indicatorColor = MaterialTheme.colorScheme.tertiary
                 )
             )
         }

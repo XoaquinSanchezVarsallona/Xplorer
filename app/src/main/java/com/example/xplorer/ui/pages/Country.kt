@@ -9,11 +9,13 @@ import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavController
+import com.example.xplorer.api.world_bank.Country
+import com.example.xplorer.api.world_bank.WorldBankData
 import com.example.xplorer.components.FlagLabel
-import com.example.xplorer.navigator.XplorerScreens
+import com.example.xplorer.R
 import com.example.xplorer.storage.XplorerDatabase
-import com.example.xplorer.ui.theme.Greyscale500
 import com.example.xplorer.ui.theme.MediumPadding
 
 @Composable
@@ -27,7 +29,7 @@ fun Country(navController: NavController, id: String) {
             text = "No hay datos disponibles",
             style = MaterialTheme.typography.titleLarge,
             modifier = Modifier.fillMaxSize(),
-            color = Greyscale500
+            color = MaterialTheme.colorScheme.onBackground
         )
     } else {
         Column(
@@ -40,7 +42,7 @@ fun Country(navController: NavController, id: String) {
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(MediumPadding),
-                countryFlag = country.id,
+                countryFlag = WorldBankData(Country(country.id, country.name), country.tourism).countryCodeToFlagEmoji(),
                 countryName = country.name,
             )
             Text(
@@ -62,15 +64,15 @@ fun Country(navController: NavController, id: String) {
             Text(
                 text = "ID: ${country.id}",
                 style = MaterialTheme.typography.bodyLarge,
-                color = Greyscale500
+                color = MaterialTheme.colorScheme.onBackground
             )
 
             Spacer(modifier = Modifier.height(MediumPadding))
 
             Text(
-                text = "Description / Details of that country: ${country.details}",
+                text = stringResource(R.string.country_details_description, country.details),
                 style = MaterialTheme.typography.bodyLarge,
-                color = Greyscale500
+                color = MaterialTheme.colorScheme.surface
             )
         }
     }

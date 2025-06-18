@@ -32,11 +32,11 @@
              .padding(innerPadding)
              .padding(LargePadding)
      ) {
-         composable(route = XplorerScreens.Login.route) {
-             LoginScreen(navController)
-         }
          composable(route = XplorerScreens.Home.route) {
              HomePage(navController)
+         }
+         composable(route = XplorerScreens.Login.route) {
+             LoginScreen(navController)
          }
          composable(route = XplorerScreens.Favorite.route) {
              // Favorite()

@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -78,15 +79,8 @@ fun CountryCard(name: String, image: String) {
             ) {
                 Text(
                     text = name,
-                    color = Color.White,
-                    style = Typography.titleLarge
-
-                )
-                Spacer(Modifier.height(SmallPadding))
-                Text(
-                    text = stringResource(R.string.country_card_description),
-                    color = Color.White.copy(alpha = 0.9f),
-                    style = Typography.bodySmall
+                    color = MaterialTheme.colorScheme.secondary,
+                    style = MaterialTheme.typography.titleLarge
                 )
             }
         }

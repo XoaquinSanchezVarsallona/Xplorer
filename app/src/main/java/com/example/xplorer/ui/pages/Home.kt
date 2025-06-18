@@ -27,7 +27,6 @@ import com.example.xplorer.api.world_bank.WorldBankData
 import com.example.xplorer.components.CountryCarousel
 import com.example.xplorer.components.ExpandableSearchBar
 import com.example.xplorer.navigator.XplorerScreens
-import com.example.xplorer.ui.theme.Greyscale500
 import com.example.xplorer.ui.theme.MediumPadding
 import com.example.xplorer.viewModels.HomeViewModel
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
@@ -55,10 +54,10 @@ fun HomePage(navController: NavController) {
 
     if (items.isEmpty()) {
         Text(
-            text = "No hay datos disponibles",
+            text = stringResource(R.string.no_data),
             style = MaterialTheme.typography.titleLarge,
             modifier = Modifier.fillMaxSize(),
-            color = Greyscale500
+            color = MaterialTheme.colorScheme.onBackground
         )
     } else {
         Column(
@@ -84,7 +83,7 @@ fun HomePage(navController: NavController) {
                 text = stringResource(R.string.explore_text),
                 style = MaterialTheme.typography.titleLarge,
                 modifier = Modifier.padding(horizontal = MediumPadding),
-                color = Greyscale500
+                color = MaterialTheme.colorScheme.onBackground
             )
 
             Spacer(modifier = Modifier.height(MediumPadding))

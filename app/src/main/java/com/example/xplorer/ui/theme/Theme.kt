@@ -13,13 +13,27 @@ import androidx.compose.ui.platform.LocalContext
 private val DarkColorScheme = darkColorScheme(
     primary = Primary500,
     secondary = Greyscale400,
-    tertiary = Greyscale500
+    tertiary = Greyscale500,
+    background = BackgroundColor,
+    surface = NavButtomBarColor,
+    onPrimary = FocusedIconColor,
+    onSecondary = UnselectedColor,
+    onTertiary = FocusIcon,
+    onBackground = Greyscale600,
+    onSurface = Greyscale500
 )
 
 private val LightColorScheme = lightColorScheme(
     primary = Primary600,
     secondary = Greyscale500,
-    tertiary = Greyscale600
+    tertiary = Greyscale600,
+    background = BackgroundColor,
+    surface = NavButtomBarColor,
+    onPrimary = FocusedIconColor,
+    onSecondary = UnselectedColor,
+    onTertiary = FocusIcon,
+    onBackground = Greyscale400,
+    onSurface = Greyscale600
 )
 
 /* Other default colors to override

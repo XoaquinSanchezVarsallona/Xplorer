@@ -11,4 +11,7 @@
     <string name="country_card_description">little description</string>
     <string name="search_bar_placeholder">Escribí tu búsqueda...</string>
     <string name="explore_text">Explora Países</string>
+    <string name="no_data">Buscar Países</string>
+    <string name="sign_in">"Continue with Google"</string>
+    <string name="country_details_description">Description / Details of that country: %1$s</string>
 </resources>

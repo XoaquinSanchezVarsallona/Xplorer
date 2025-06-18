@@ -8,6 +8,7 @@ import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.FavoriteBorder
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
@@ -30,7 +31,7 @@ fun FavoriteButton (
         Icon(
             imageVector = if (isFavorite) Icons.Default.Favorite else Icons.Default.FavoriteBorder,
             contentDescription = "Favorite",
-            tint = if (isFavorite) Color.Red else Color.Gray
+            tint = if (isFavorite) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurface
         )
     }
 }
