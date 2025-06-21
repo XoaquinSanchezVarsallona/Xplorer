@@ -81,5 +81,5 @@ dependencies {
     implementation("androidx.credentials:credentials:1.2.0-beta01")
 
     // ... dependencias de prueba ...
-    androidTestImplementation("androidx.credentials:credentials-play-services-auth:1.5.0")
+    implementation("androidx.credentials:credentials-play-services-auth:1.5.0")
 }

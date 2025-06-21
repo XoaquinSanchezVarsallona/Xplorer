@@ -64,7 +64,7 @@ class LoginViewModel @Inject constructor (
         )
     }
 
-    fun launchCredentialManager() {
+    fun launchCredentialManager(context: Context) {
         val serverClientId = context.getString(R.string.google_service_id)
 
         val googleIdOption = GetGoogleIdOption.Builder()
