@@ -20,4 +20,7 @@ interface CountryDao {
 
     @Query("SELECT * FROM countries WHERE id = :id")
     fun getCountryById(id: String): LiveData<Country>
+
+    @Query("Select * From countries where name == :name")
+    fun getCountryByName(name: String): LiveData<Country>
 }

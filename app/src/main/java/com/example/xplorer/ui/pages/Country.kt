@@ -1,6 +1,6 @@
 package com.example.xplorer.ui.pages
 
-import android.util.Log
+
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -10,7 +10,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
-import androidx.navigation.NavController
 import com.example.xplorer.api.world_bank.Country
 import com.example.xplorer.api.world_bank.WorldBankData
 import com.example.xplorer.components.FlagLabel
@@ -19,11 +18,11 @@ import com.example.xplorer.storage.XplorerDatabase
 import com.example.xplorer.ui.theme.MediumPadding
 
 @Composable
-fun Country(navController: NavController, id: String) {
+fun Country(name: String) {
     val database = XplorerDatabase.getDatabase(LocalContext.current)
     val countryDao = database.countryDao()
 
-    val country = countryDao.getCountryById(id).observeAsState().value
+    val country = countryDao.getCountryByName(name).observeAsState().value
     if (country == null) {
         Text(
             text = "No hay datos disponibles",

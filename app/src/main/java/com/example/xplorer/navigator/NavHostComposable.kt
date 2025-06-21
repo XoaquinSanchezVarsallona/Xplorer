@@ -45,12 +45,12 @@
              // City()
          }
          composable(
-             route = "${XplorerScreens.Country.route}/{countryId}",
-             arguments = listOf(navArgument("countryId") { type = NavType.StringType })
+             route = "${XplorerScreens.Country.route}/{countryName}",
+             arguments = listOf(navArgument("countryName") { type = NavType.StringType })
          ) { backStackEntry ->
-             val countryId = backStackEntry.arguments?.getString("countryId")
-             Log.d("NAV", "Country ID: $countryId")
-             Country(navController = navController ,id = countryId!!)
+             val countryName = backStackEntry.arguments?.getString("countryName")
+             Log.d("NAV", "Country Name: $countryName")
+             Country(name = countryName!!)
          }
          composable(route = XplorerScreens.Profile.route) {
          }

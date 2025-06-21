@@ -1,29 +1,31 @@
 package com.example.xplorer.components
 
-import androidx.compose.runtime.Composable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
-import androidx.compose.ui.platform.LocalConfiguration
-import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.lazy.rememberLazyListState
+import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import com.example.xplorer.api.unsplash.UnsplashImage
-import com.example.xplorer.api.unsplash.UnsplashUrls
+import com.example.xplorer.navigator.XplorerScreens
 import com.example.xplorer.ui.theme.MediumPadding
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlin.math.absoluteValue
 
 @Composable
-fun CountryCarousel(imageMap: Map<String, UnsplashImage>) {
+fun CountryCarousel(imageMap: Map<String, UnsplashImage>, navController: NavController) {
     val listState = rememberLazyListState()
     val screenWidth = LocalConfiguration.current.screenWidthDp.dp
     val cardWidth = screenWidth * 0.7f
@@ -62,12 +64,15 @@ fun CountryCarousel(imageMap: Map<String, UnsplashImage>) {
                     .fillMaxHeight(),
                 contentAlignment = Alignment.Center
             ) {
-                CountryCard(name = countryName, image = image.urls.raw)
+                CountryCard(name = countryName, image = image.urls.raw,  onclick = { name ->
+                    navController.navigate(XplorerScreens.Country.withArgs(name))
+                })
             }
         }
     }
 }
 
+/*
 @Preview(showBackground = true)
 @Composable
 fun CountryCarouselPreview() {
@@ -89,6 +94,6 @@ fun CountryCarouselPreview() {
             .background(Color.LightGray)
             .padding(vertical = MediumPadding)
     ) {
-        CountryCarousel(countryMap)
+        CountryCarousel(countryMap, navController = NavController(LocalConfiguration.current))
     }
-}
+}*/

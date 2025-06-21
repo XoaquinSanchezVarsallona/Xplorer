@@ -10,8 +10,8 @@ import com.example.xplorer.room.entities.Favorite
 
 @Dao
 interface FavoriteDao {
-    @Query("SELECT * FROM favorites WHERE userId = :userId")
-    fun getFavoritesByUser(userId: Int): LiveData<List<Favorite>>
+    @Query("SELECT * FROM favorites")
+    fun getFavoritesByUser(): LiveData<List<Favorite>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertFavorite(favorite: Favorite)

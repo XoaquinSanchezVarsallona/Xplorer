@@ -34,7 +34,6 @@ import com.example.xplorer.api.world_bank.WorldBankData
 import com.example.xplorer.ui.theme.BackgroundColor
 import com.example.xplorer.ui.theme.UnselectedColor
 import com.example.xplorer.ui.theme.CountryCardHeight
-import com.example.xplorer.ui.theme.Greyscale400
 import com.example.xplorer.ui.theme.MediumPadding
 import com.example.xplorer.ui.theme.SmallPadding
 import com.example.xplorer.ui.theme.Typography
@@ -90,7 +89,7 @@ fun ExpandableSearchBar (modifier: Modifier, items : List<WorldBankData>, onItem
                         modifier = Modifier
                             .fillMaxWidth()
                             .clickable {
-                                onItemSelected(item.country.id)
+                                onItemSelected(item.country.value)
                                 query = ""
                             }
                             .padding(vertical = SmallPadding, horizontal = MediumPadding)

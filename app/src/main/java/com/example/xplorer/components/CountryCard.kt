@@ -2,9 +2,9 @@ package com.example.xplorer.components
 
 import androidx.compose.animation.animateContentSize
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -23,18 +23,15 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalWindowInfo
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
-import com.example.xplorer.R
 import com.example.xplorer.ui.theme.MediumPadding
 import com.example.xplorer.ui.theme.SmallPadding
-import com.example.xplorer.ui.theme.Typography
 
 @Composable
-fun CountryCard(name: String, image: String) {
+fun CountryCard(name: String, image: String, onclick: (name : String) -> Unit) {
     val (currentWidth, currentHeight) = getScreenSize()
 
     Box(
@@ -44,6 +41,7 @@ fun CountryCard(name: String, image: String) {
             .clip(RoundedCornerShape(MediumPadding))
             .shadow(MediumPadding, RoundedCornerShape(MediumPadding))
             .animateContentSize()
+            .clickable { onclick (name) }
     ) {
         AsyncImage(
             model = ImageRequest.Builder(LocalContext.current)
@@ -106,7 +104,8 @@ fun CountryCardPreview() {
     ) {
         CountryCard(
             name = "Argentina",
-            image = "https://images.unsplash.com/photo-1567550207563-6503c9ff6995?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NDI1OTl8MHwxfHNlYXJjaHwxMHx8Q3plY2hpYXxlbnwwfDB8fHwxNzQ1NTI1Njk3fDA&ixlib=rb-4.0.3&q=85"
+            image = "https://images.unsplash.com/photo-1567550207563-6503c9ff6995?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NDI1OTl8MHwxfHNlYXJjaHwxMHx8Q3plY2hpYXxlbnwwfDB8fHwxNzQ1NTI1Njk3fDA&ixlib=rb-4.0.3&q=85",
+            onclick = {}
         )
     }
 }

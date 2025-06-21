@@ -1,7 +1,6 @@
 package com.example.xplorer.ui.pages
 
 import android.os.Build
-import android.util.Log
 import androidx.activity.compose.LocalActivity
 import androidx.annotation.RequiresApi
 import androidx.compose.foundation.BorderStroke
@@ -40,6 +39,7 @@ fun LoginScreen (navController: NavController) {
     //agregar el usuario dentro de room.
     val userData = viewModel.userData.collectAsStateWithLifecycle()
     val isAuthenticated = viewModel.isAuthenticated.collectAsStateWithLifecycle()
+    val context = LocalContext.current
 
     Column(
         modifier = Modifier
@@ -55,19 +55,19 @@ fun LoginScreen (navController: NavController) {
             }
             GoogleLoginButton(
                 modifier = Modifier,
-                onClick = { viewModel.launchCredentialManager() }
+                onClick = { viewModel.launchCredentialManager(context) }
             )
         }
         else {
             userData.value!!.displayName
-            navController.navigate(XplorerScreens.Home)
+            navController.navigate(XplorerScreens.Home.route)
         }
     }
 }
 
 @Composable
 fun GoogleLoginButton(
-    onClick: () -> Unit,
+    onClick:  () -> Unit,
     modifier: Modifier
 ) {
     GoogleButtonUI(

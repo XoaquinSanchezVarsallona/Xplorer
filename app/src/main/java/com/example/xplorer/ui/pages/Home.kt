@@ -69,8 +69,8 @@ fun HomePage(navController: NavController) {
                     .fillMaxWidth()
                     .clip(RoundedCornerShape(MediumPadding)),
                 items = items,
-                onItemSelected = { id ->
-                    navController.navigate(XplorerScreens.Country.withArgs(id)) {
+                onItemSelected = { name ->
+                    navController.navigate(XplorerScreens.Country.withArgs(name)) {
                         launchSingleTop = true
                         restoreState = true
                     }
@@ -93,7 +93,7 @@ fun HomePage(navController: NavController) {
                     .fillMaxWidth(),
                 contentAlignment = Alignment.Center
             ) {
-                CountryCarousel(imageMap = imageMap)
+                CountryCarousel(imageMap = imageMap, navController = navController)
             }
 
             Spacer(modifier = Modifier.weight(1f))
