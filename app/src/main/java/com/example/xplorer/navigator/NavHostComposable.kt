@@ -14,6 +14,7 @@
  import androidx.navigation.compose.composable
  import androidx.navigation.navArgument
  import com.example.xplorer.ui.pages.Country
+ import com.example.xplorer.ui.pages.Favorite
  import com.example.xplorer.ui.pages.HomePage
  import com.example.xplorer.ui.pages.LoginScreen
  import com.example.xplorer.ui.theme.LargePadding
@@ -39,7 +40,7 @@
              LoginScreen(navController)
          }
          composable(route = XplorerScreens.Favorite.route) {
-             // Favorite()
+             Favorite()
          }
          composable(route = XplorerScreens.City.route) {
              // City()

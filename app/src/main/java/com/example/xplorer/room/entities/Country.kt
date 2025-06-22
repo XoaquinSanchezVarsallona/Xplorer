@@ -9,6 +9,7 @@ data class Country(
     val name: String,
     val tourism : Double?,
     val details : String,
+    var isFavorite: Boolean = false
 ) {
     fun countryCodeToFlagEmoji(): String {
         val countryCode = id

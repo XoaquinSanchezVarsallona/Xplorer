@@ -23,4 +23,7 @@ interface CountryDao {
 
     @Query("Select * From countries where name == :name")
     fun getCountryByName(name: String): LiveData<Country>
+
+    @Query("SELECT * FROM countries WHERE isFavorite = true")
+    fun getFavoriteCountries(): LiveData<List<Country>>
 }

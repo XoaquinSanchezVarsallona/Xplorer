@@ -5,15 +5,11 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.example.xplorer.room.dao.CountryDao
-import com.example.xplorer.room.dao.FavoriteDao
 import com.example.xplorer.room.entities.Country
-import com.example.xplorer.room.entities.Favorite
 
-@Database(entities = [Country::class, Favorite::class], version = 3, exportSchema = false)
+@Database(entities = [Country::class], version = 4, exportSchema = false)
 abstract class XplorerDatabase : RoomDatabase() {
     abstract fun countryDao(): CountryDao
-
-    abstract fun favoriteDao(): FavoriteDao
 
     companion object {
         @Volatile
