@@ -49,9 +49,8 @@ fun BottomBar(
 ) {
     val homeTab = TabBarItem(title = XplorerScreens.Home.name, selectedIcon = Icons.Filled.Home, unselectedIcon = Icons.Filled.Home)
     val rankingTab = TabBarItem(title = XplorerScreens.Favorite.name, selectedIcon = Icons.Filled.Favorite, unselectedIcon = Icons.Filled.Favorite)
-    val profileTab = TabBarItem(title = XplorerScreens.Login.name, selectedIcon = Icons.Filled.Person, unselectedIcon = Icons.Filled.Person)
 
-    val tabBarItems = listOf(homeTab, rankingTab, profileTab)
+    val tabBarItems = listOf(homeTab, rankingTab)
 
     TabView(tabBarItems, onNavigate)
 }

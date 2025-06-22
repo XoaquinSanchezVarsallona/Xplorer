@@ -15,6 +15,7 @@ import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.ProcessLifecycleOwner
 import androidx.navigation.compose.rememberNavController
 import com.example.xplorer.navigator.NavHostComposable
+import com.example.xplorer.navigator.XplorerScreens
 import com.example.xplorer.notifications.AppLifecycleObserver
 import com.example.xplorer.notifications.notificationChannelID
 import com.example.xplorer.ui.theme.BackgroundColor
@@ -44,7 +45,10 @@ class MainActivity : FragmentActivity() {
 
             XplorerTheme {
                 Scaffold(
-                    bottomBar = {BottomBar { navController.navigate(it) }},
+                    bottomBar = {
+                        if (navController.currentBackStackEntry?.destination?.route != XplorerScreens.Login.route) {
+                            BottomBar { navController.navigate(it) }
+                        }},
                     modifier = Modifier.fillMaxSize(),
                     containerColor = BackgroundColor
                 ) { innerPadding ->

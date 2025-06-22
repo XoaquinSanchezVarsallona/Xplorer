@@ -27,7 +27,7 @@
  ) {
      NavHost(
          navController = navController,
-         startDestination = XplorerScreens.Home.route,
+         startDestination = XplorerScreens.Login.route,
          modifier = Modifier
              .fillMaxSize()
              .padding(innerPadding)
